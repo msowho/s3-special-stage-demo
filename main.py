@@ -11,14 +11,14 @@ colors = {
 circles = []
 current_demo = 'square'
 
-def do_square_of_circles(z, size=2, radius=25):
+def do_square_of_circles(x, z, size=2, radius=25):
     result = []
 
     if size < 2:
         return []
     
-    current_x = -(radius * size)
-    current_z = -(radius * size)
+    current_x = -(radius * size) + x
+    current_z = -(radius * size) + z
 
     i = 0
     j = 0
@@ -34,7 +34,7 @@ def do_square_of_circles(z, size=2, radius=25):
         current_x += radius * 3
         i += 1
         if i == size:
-            current_x = -(radius * size)
+            current_x = -(radius * size) + x
             current_z += radius * 3
             i = 0
             j += 1
@@ -44,12 +44,14 @@ def do_square_of_circles(z, size=2, radius=25):
 def generate_circles_by_demo_name(demo_name):
     result = []
     if demo_name == 'square':
-        result += do_square_of_circles(0, 4)
-    return result        
+        result += do_square_of_circles(0, 0)
+        result += do_square_of_circles(-25, -25, 4)
+        result += do_square_of_circles(-50, -50, 6)
+        result += do_square_of_circles(-75, -75, 8)
+    return result
 
 running = True
 circles = generate_circles_by_demo_name('square')
-print(circles)
 
 while running:
     for event in pygame.event.get():
